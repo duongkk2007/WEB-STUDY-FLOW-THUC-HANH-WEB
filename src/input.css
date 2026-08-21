@@ -14,11 +14,18 @@
     /* Trạng thái hoàn thành / tiến độ */
     --color-success-500: #35b78c;
 
-    /* Chữ & nền */
+    /* Chữ & nền — light */
     --color-ink: #14181f;
     --color-muted: #5b6472;
     --color-surface: #edeff3;
     --color-line: #d7dbe3;
+
+    /* Chữ & nền — dark (cặp token, không đảo màu tùy hứng) */
+    --color-ink-invert: #eaeaf2;
+    --color-muted-invert: #a3a8b8;
+    --color-surface-dark: #141520;
+    --color-surface-dark-alt: #1c1d2b;
+    --color-line-invert: #2c2e40;
 
     /* Phông chữ */
     --font-display: "Space Mono", "IBM Plex Mono", ui-monospace, monospace;
@@ -26,6 +33,18 @@
 
     --radius-card: 0.875rem;
     --radius-pill: 999px;
+}
+
+
+/* ========================================
+   DARK MODE — đảo token, không đảo màu
+======================================== */ 
+
+.dark {
+    --color-ink: var(--color-ink-invert);
+    --color-muted: var(--color-muted-invert);
+    --color-surface: var(--color-surface-dark-alt);
+    --color-line: var(--color-line-invert);
 }
 
 
@@ -41,7 +60,7 @@
     }
 
     body {
-        @apply text-ink font-body antialiased;
+        @apply text-ink dark:text-ink-invert font-body antialiased;
 
         /* Background StudyFlow */
         background:
@@ -63,6 +82,22 @@
             );
 
         min-height: 100vh;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .dark body {
+        background:
+            radial-gradient(
+                circle at 75% 30%,
+                rgba(123, 110, 255, 0.10),
+                transparent 32%
+            ),
+            radial-gradient(
+                circle at 15% 70%,
+                rgba(76, 105, 240, 0.08),
+                transparent 30%
+            ),
+            var(--color-surface-dark);
     }
 }
 
@@ -95,6 +130,11 @@
         transition-all duration-200;
     }
 
+    .btn:focus-visible {
+        @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-white
+        dark:ring-offset-surface-dark;
+    }
+
     .btn-primary {
         @apply bg-brand-600 text-white
         hover:bg-brand-700;
@@ -103,7 +143,13 @@
     .btn-secondary {
         @apply border border-line
         bg-transparent text-ink
-        hover:bg-surface;
+        hover:bg-surface
+        dark:border-line-invert dark:text-ink-invert dark:hover:bg-surface-dark-alt;
+    }
+
+    .btn-ghost {
+        @apply text-ink hover:text-brand-600
+        dark:text-ink-invert dark:hover:text-white;
     }
 
 
@@ -131,6 +177,21 @@
                 #f7f7ff 50%,
                 #eeeeff 100%
             );
+    }
+
+    .dark .studyflow-bg {
+        background:
+            radial-gradient(
+                circle at 75% 35%,
+                rgba(123, 104, 255, 0.12),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 15% 80%,
+                rgba(76, 105, 240, 0.08),
+                transparent 30%
+            ),
+            var(--color-surface-dark);
     }
 
 
@@ -216,38 +277,6 @@
 
 
     /* ========================================
-       TIMER CARD
-    ======================================== */
-
-    .timer-card {
-        @apply rounded-card
-        border border-white/70
-        bg-white/80
-        p-8
-        shadow-2xl;
-
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-    }
-
-    .timer-number {
-        @apply font-display
-        text-6xl font-bold;
-
-        background: linear-gradient(
-            90deg,
-            #365ee8,
-            #9144ef
-        );
-
-        -webkit-background-clip: text;
-        background-clip: text;
-
-        color: transparent;
-    }
-
-
-    /* ========================================
        GLASS CARD
     ======================================== */
 
@@ -255,7 +284,8 @@
         @apply rounded-card
         border border-white/70
         bg-white/70
-        shadow-lg;
+        shadow-lg
+        dark:border-white/10 dark:bg-surface-dark-alt/70;
 
         backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
@@ -263,18 +293,46 @@
 
 
     /* ========================================
-       STATS
+       CARD — dùng ở pricing.html, contact.html
     ======================================== */
 
-    .stats-card {
-        @apply flex items-center
-        rounded-card
-        border border-white/70
-        bg-white/80
-        p-4
-        shadow-lg;
+    .card {
+        @apply rounded-card border border-line bg-white p-6
+        dark:border-line-invert dark:bg-surface-dark-alt;
+    }
 
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+
+    /* ========================================
+       BADGE
+    ======================================== */
+
+    .badge {
+        @apply inline-flex items-center rounded-pill
+        bg-brand-600 px-3 py-1
+        text-xs font-semibold text-white;
+    }
+
+
+    /* ========================================
+       FORM FIELDS — dùng ở contact.html
+    ======================================== */
+
+    .field-label {
+        @apply mb-1.5 block text-sm font-semibold text-ink
+        dark:text-ink-invert;
+    }
+
+    .field-input {
+        @apply w-full rounded-lg border border-line bg-white
+        px-3.5 py-2.5 text-sm text-ink
+        transition-colors duration-150
+        placeholder:text-muted
+        focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/30
+        dark:border-line-invert dark:bg-surface-dark-alt dark:text-ink-invert
+        dark:focus:border-brand-600;
+    }
+
+    .field-error {
+        @apply mt-1.5 min-h-[1rem] text-xs font-medium text-red-600;
     }
 }

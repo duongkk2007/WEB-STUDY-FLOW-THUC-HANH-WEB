@@ -11,20 +11,24 @@
 
   <a href="#main" class="sr-only focus:not-sr-only">Bỏ qua đến nội dung chính</a>
 
-  <!-- NAVBAR-->
+  <!-- NAVBAR (dùng chung cho cả 3 trang) -->
   <header class="border-b border-line">
     <nav aria-label="Điều hướng chính" class="section flex items-center justify-between !py-4">
       <a href="#main" class="font-display text-lg font-bold">StudyFlow</a>
-      <ul class="hidden items-center gap-8 text-sm font-medium md:flex">
-        <li><a href="#tinh-nang-title" class="hover:text-brand-600">Tính năng</a></li>
-        <li><a href="#so-lieu-title" class="hover:text-brand-600">Số liệu</a></li>
-        <li><a href="#gia-title" class="hover:text-brand-600">Bảng giá</a></li>
-        <li><a href="#faq-title" class="hover:text-brand-600">Câu hỏi thường gặp</a></li>
-        <li><a href="#cta-title" class="hover:text-brand-600">Liên hệ</a></li>
+      <ul class="hidden items-center gap-8 text-sm font-medium lg:flex">
+        <li><a href="index.html#tinh-nang-title" class="btn-ghost">Tính năng</a></li>
+        <li><a href="index.html#so-lieu-title" class="btn-ghost">Số liệu</a></li>
+        <li><a href="pricing.html" class="btn-ghost">Bảng giá</a></li>
+        <li><a href="index.html#faq-title" class="btn-ghost">Câu hỏi thường gặp</a></li>
+        <li><a href="contact.html" class="btn-ghost">Liên hệ</a></li>
       </ul>
       <div class="flex items-center gap-4">
-        <a href="#" class="hidden text-sm font-semibold sm:inline hover:text-brand-600">Đăng nhập</a>
-        <a href="#cta-title" class="btn btn-primary">Bắt đầu miễn phí</a>
+        <a href="#" class="btn-ghost hidden text-sm font-semibold lg:inline">Đăng nhập</a>
+        <a href="contact.html" class="btn btn-primary">Bắt đầu miễn phí</a>
+        <!-- Hamburger: chừa chỗ cho mobile, gắn JS ở buổi 4 -->
+        <button type="button" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line lg:hidden" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
       </div>
     </nav>
   </header>
@@ -41,11 +45,11 @@
           StudyFlow chia buổi ôn thi thành các phiên tập trung 25 phút, nhắc bạn nghỉ đúng lúc.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a href="#cta-title" class="btn btn-primary">Bắt đầu phiên đầu tiên</a>
+          <a href="contact.html" class="btn btn-primary">Bắt đầu phiên đầu tiên</a>
           <a href="#tinh-nang-title" class="btn btn-secondary">Xem cách hoạt động</a>
         </div>
       </div>
-      <div class="flex flex-col gap-2 rounded-card border border-line bg-white p-10 text-center">
+      <div class="flex flex-col gap-2 rounded-card border border-line bg-white p-10 text-center dark:bg-surface-dark-alt">
         <p class="font-display text-4xl font-bold text-brand-600">25:00</p>
         <p class="text-sm text-muted">Một phiên tập trung</p>
       </div>
@@ -76,14 +80,14 @@
             <li class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="shrink-0 text-success-500" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Nhắc nghỉ đúng 5 phút</li>
           </ul>
         </div>
-        <div class="rounded-card border border-line bg-white p-10 text-center">
+        <div class="rounded-card border border-line bg-white p-10 text-center dark:bg-surface-dark-alt">
           <p class="font-display text-3xl font-bold text-brand-600">18:24</p>
           <p class="text-sm text-muted">Đang học: Giải tích 2</p>
         </div>
       </div>
 
       <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <div class="rounded-card border border-line bg-white p-10 text-center lg:order-1">
+        <div class="rounded-card border border-line bg-white p-10 text-center dark:bg-surface-dark-alt lg:order-1">
           <p class="font-display text-3xl font-bold text-accent-500">9 / 2</p>
           <p class="text-sm text-muted">Phiên Toán so với Anh văn tuần này</p>
         </div>
@@ -263,7 +267,7 @@
             <li>1 môn học</li>
             <li>Nhật ký 7 ngày</li>
           </ul>
-          <a href="#cta-title" class="btn btn-secondary mt-auto">Bắt đầu</a>
+          <a href="pricing.html" class="btn btn-secondary mt-auto">Bắt đầu</a>
         </li>
         <li class="relative flex h-full flex-col gap-4 rounded-card border border-line p-6 ring-2 ring-brand-600">
           <span class="absolute -top-3 left-6 rounded-pill bg-brand-600 px-3 py-1 text-xs font-semibold text-white">Được chọn nhiều nhất</span>
@@ -277,7 +281,7 @@
             <li>Mọi môn học</li>
             <li>Nhắc lịch theo ngày thi</li>
           </ul>
-          <a href="#cta-title" class="btn btn-primary mt-auto">Nâng cấp</a>
+          <a href="pricing.html" class="btn btn-primary mt-auto">Nâng cấp</a>
         </li>
         <li class="flex h-full flex-col gap-4 rounded-card border border-line p-6">
           <div class="flex flex-col gap-1">
@@ -290,7 +294,7 @@
             <li>Xếp hạng chuỗi ngày</li>
             <li>Tối đa 5 người</li>
           </ul>
-          <a href="#cta-title" class="btn btn-secondary mt-auto">Tạo nhóm</a>
+          <a href="pricing.html" class="btn btn-secondary mt-auto">Tạo nhóm</a>
         </li>
       </ul>
     </section>
@@ -300,7 +304,7 @@
       <div class="flex flex-col gap-3">
         <h2 id="faq-title" class="font-display text-3xl font-bold">Câu hỏi thường gặp</h2>
         <p class="text-muted">Chưa thấy câu trả lời mình cần? Nhắn cho đội StudyFlow, phản hồi trong vòng một ngày làm việc.</p>
-        <a href="#cta-title" class="text-sm font-semibold text-brand-600 hover:underline">Liên hệ hỗ trợ →</a>
+        <a href="contact.html" class="text-sm font-semibold text-brand-600 hover:underline">Liên hệ hỗ trợ →</a>
       </div>
       <div class="flex flex-col divide-y divide-line border-y border-line">
         <details class="group flex flex-col gap-3 py-4" open>
@@ -338,7 +342,7 @@
     <section aria-labelledby="cta-title" class="section flex flex-col items-center gap-6 rounded-card bg-brand-600 text-center text-white">
       <h2 id="cta-title" class="font-display text-3xl font-bold">Bắt đầu học thử ngay hôm nay</h2>
       <p class="max-w-md text-white/80">Cài đặt mất chưa tới 2 phút, không cần thẻ ngân hàng.</p>
-      <a href="#hero-title" class="btn bg-white text-brand-600 hover:bg-white/90">Bắt đầu phiên đầu tiên</a>
+      <a href="contact.html" class="btn bg-white text-brand-600 hover:bg-white/90">Bắt đầu phiên đầu tiên</a>
     </section>
 
   </main>
@@ -355,14 +359,14 @@
           <h3 id="footer-san-pham" class="text-xs font-bold uppercase tracking-wide text-muted">Sản phẩm</h3>
           <ul class="flex flex-col gap-2 text-sm">
             <li><a href="#tinh-nang-title" class="hover:text-brand-600">Tính năng</a></li>
-            <li><a href="#gia-title" class="hover:text-brand-600">Bảng giá</a></li>
+            <li><a href="pricing.html" class="hover:text-brand-600">Bảng giá</a></li>
           </ul>
         </nav>
         <nav aria-labelledby="footer-ho-tro" class="flex flex-col gap-3">
           <h3 id="footer-ho-tro" class="text-xs font-bold uppercase tracking-wide text-muted">Hỗ trợ</h3>
           <ul class="flex flex-col gap-2 text-sm">
             <li><a href="#faq-title" class="hover:text-brand-600">Câu hỏi thường gặp</a></li>
-            <li><a href="mailto:hello@studyflow.vn" class="hover:text-brand-600">Liên hệ</a></li>
+            <li><a href="contact.html" class="hover:text-brand-600">Liên hệ</a></li>
           </ul>
         </nav>
         <address class="flex flex-col gap-3 not-italic">
