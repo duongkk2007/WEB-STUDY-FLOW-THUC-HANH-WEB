@@ -6,13 +6,23 @@
   <title>Bảng giá — StudyFlow</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="dist/output.css" />
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const dark = saved ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    })();
+  </script>
 </head>
 <body class="studyflow-bg font-body text-ink">
 
   <a href="#main" class="sr-only focus:not-sr-only">Bỏ qua đến nội dung chính</a>
 
+  <div id="nav-sentinel" aria-hidden="true"></div>
+
   <!-- NAVBAR (dùng chung cho cả 3 trang) -->
-  <header class="border-b border-line">
+  <header id="site-header" class="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md transition-shadow dark:bg-surface-dark/90">
     <nav aria-label="Điều hướng chính" class="section flex items-center justify-between !py-4">
       <a href="index.html" class="font-display text-lg font-bold">StudyFlow</a>
       <ul class="hidden items-center gap-8 text-sm font-medium lg:flex">
@@ -22,25 +32,45 @@
         <li><a href="index.html#faq-title" class="btn-ghost">Câu hỏi thường gặp</a></li>
         <li><a href="contact.html" class="btn-ghost">Liên hệ</a></li>
       </ul>
-      <div class="flex items-center gap-4">
-        <a href="#" class="btn-ghost hidden text-sm font-semibold lg:inline">Đăng nhập</a>
-        <a href="contact.html" class="btn btn-primary">Bắt đầu miễn phí</a>
-        <!-- Hamburger: chừa chỗ cho mobile, gắn JS ở buổi 4 -->
-        <button type="button" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line lg:hidden" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mobile-menu">
+      <div class="flex items-center gap-3">
+        <button type="button" id="theme-toggle" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line" aria-label="Chuyển chế độ tối">
+          <svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary hidden sm:inline-flex">Bắt đầu miễn phí</a>
+        <button type="button" id="nav-toggle" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line lg:hidden" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </nav>
+    <div id="mobile-menu" class="hidden border-t border-line bg-white dark:bg-surface-dark lg:hidden" role="dialog" aria-label="Menu điều hướng">
+      <ul class="section !py-6 flex flex-col gap-4 text-base font-medium">
+        <li><a href="index.html#tinh-nang-title" class="block py-2">Tính năng</a></li>
+        <li><a href="index.html#so-lieu-title" class="block py-2">Số liệu</a></li>
+        <li><a href="pricing.html" class="block py-2">Bảng giá</a></li>
+        <li><a href="index.html#faq-title" class="block py-2">Câu hỏi thường gặp</a></li>
+        <li><a href="contact.html" class="block py-2">Liên hệ</a></li>
+        <li class="pt-2"><a href="contact.html" class="btn btn-primary w-full justify-center">Bắt đầu miễn phí</a></li>
+      </ul>
+    </div>
   </header>
 
   <main id="main">
+    <div id="pricing">
 
     <!-- HERO BẢNG GIÁ -->
     <section aria-labelledby="pricing-hero-title" class="section flex flex-col items-center gap-4 text-center">
       <p class="eyebrow justify-center">Bảng giá</p>
       <h1 id="pricing-hero-title" class="hero-title text-4xl lg:text-5xl">Chọn gói vừa với nhịp ôn thi của bạn</h1>
       <p class="max-w-lg text-muted">Bắt đầu miễn phí, nâng cấp khi thấy mình cần học nhiều môn hơn hoặc học cùng nhóm.</p>
-    </section>
+    
+      <div class="mt-6 flex items-center justify-center gap-3 text-sm font-medium">
+        <span id="label-monthly" class="text-ink">Tháng</span>
+        <button type="button" id="pricing-toggle" role="switch" aria-checked="false" aria-labelledby="label-monthly label-yearly" class="relative h-7 w-12 rounded-full bg-line transition-colors">
+          <span class="absolute left-0.5 top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform" aria-hidden="true"></span>
+        </button>
+        <span id="label-yearly" class="text-muted">Năm <span class="ml-1 rounded-full bg-success-500/15 px-2 py-0.5 text-xs text-success-500">−20%</span></span>
+      </div></section>
 
     <!-- BA THẺ GIÁ -->
     <section aria-labelledby="plans-title" class="section !pt-0">
@@ -51,7 +81,7 @@
             <h3 class="font-semibold">Miễn phí</h3>
             <p class="text-sm text-muted">Dành cho ai mới thử.</p>
           </div>
-          <p class="font-display text-2xl font-bold">0đ</p>
+          <p class="font-display text-2xl font-bold"><span data-price data-monthly="0" data-yearly="0">0 ₫</span></p>
           <ul class="flex flex-col gap-2 text-sm text-muted">
             <li>3 phiên/ngày</li>
             <li>1 môn học</li>
@@ -65,7 +95,7 @@
             <h3 class="font-semibold">Sinh viên</h3>
             <p class="text-sm text-muted">Ôn thi nghiêm túc cả kỳ.</p>
           </div>
-          <p class="font-display text-2xl font-bold">29.000đ<span class="text-sm font-normal">/tháng</span></p>
+          <p class="font-display text-2xl font-bold"><span data-price data-monthly="29000" data-yearly="278400">29.000 ₫</span><span class="text-sm font-normal text-muted" data-period>/tháng</span></p>
           <ul class="flex flex-col gap-2 text-sm text-muted">
             <li>Phiên không giới hạn</li>
             <li>Mọi môn học</li>
@@ -78,7 +108,7 @@
             <h3 class="font-semibold">Nhóm học</h3>
             <p class="text-sm text-muted">Ôn cùng bạn bè.</p>
           </div>
-          <p class="font-display text-2xl font-bold">79.000đ<span class="text-sm font-normal">/tháng</span></p>
+          <p class="font-display text-2xl font-bold"><span data-price data-monthly="79000" data-yearly="758400">79.000 ₫</span><span class="text-sm font-normal text-muted" data-period>/tháng</span></p>
           <ul class="flex flex-col gap-2 text-sm text-muted">
             <li>Phiên nhóm đồng bộ</li>
             <li>Xếp hạng chuỗi ngày</li>
@@ -188,6 +218,7 @@
       <a href="contact.html" class="btn bg-white text-brand-600 hover:bg-white/90">Bắt đầu ngay</a>
     </section>
 
+    </div>
   </main>
 
   <!-- FOOTER -->
@@ -233,5 +264,10 @@
     </div>
   </footer>
 
+
+  <button type="button" id="to-top" class="fixed bottom-6 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg" aria-label="Lên đầu trang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+  </button>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>

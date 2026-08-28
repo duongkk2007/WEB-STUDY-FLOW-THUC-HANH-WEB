@@ -6,13 +6,23 @@
   <title>Liên hệ — StudyFlow</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="dist/output.css" />
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const dark = saved ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    })();
+  </script>
 </head>
 <body class="studyflow-bg font-body text-ink">
 
   <a href="#main" class="sr-only focus:not-sr-only">Bỏ qua đến nội dung chính</a>
 
+  <div id="nav-sentinel" aria-hidden="true"></div>
+
   <!-- NAVBAR (dùng chung cho cả 3 trang) -->
-  <header class="border-b border-line">
+  <header id="site-header" class="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md transition-shadow dark:bg-surface-dark/90">
     <nav aria-label="Điều hướng chính" class="section flex items-center justify-between !py-4">
       <a href="index.html" class="font-display text-lg font-bold">StudyFlow</a>
       <ul class="hidden items-center gap-8 text-sm font-medium lg:flex">
@@ -22,15 +32,27 @@
         <li><a href="index.html#faq-title" class="btn-ghost">Câu hỏi thường gặp</a></li>
         <li><a href="contact.html" class="btn-ghost text-brand-600" aria-current="page">Liên hệ</a></li>
       </ul>
-      <div class="flex items-center gap-4">
-        <a href="#" class="btn-ghost hidden text-sm font-semibold lg:inline">Đăng nhập</a>
-        <a href="contact.html" class="btn btn-primary">Bắt đầu miễn phí</a>
-        <!-- Hamburger: chừa chỗ cho mobile, gắn JS ở buổi 4 -->
-        <button type="button" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line lg:hidden" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mobile-menu">
+      <div class="flex items-center gap-3">
+        <button type="button" id="theme-toggle" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line" aria-label="Chuyển chế độ tối">
+          <svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary hidden sm:inline-flex">Bắt đầu miễn phí</a>
+        <button type="button" id="nav-toggle" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line lg:hidden" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </nav>
+    <div id="mobile-menu" class="hidden border-t border-line bg-white dark:bg-surface-dark lg:hidden" role="dialog" aria-label="Menu điều hướng">
+      <ul class="section !py-6 flex flex-col gap-4 text-base font-medium">
+        <li><a href="index.html#tinh-nang-title" class="block py-2">Tính năng</a></li>
+        <li><a href="index.html#so-lieu-title" class="block py-2">Số liệu</a></li>
+        <li><a href="pricing.html" class="block py-2">Bảng giá</a></li>
+        <li><a href="index.html#faq-title" class="block py-2">Câu hỏi thường gặp</a></li>
+        <li><a href="contact.html" class="block py-2">Liên hệ</a></li>
+        <li class="pt-2"><a href="contact.html" class="btn btn-primary w-full justify-center">Bắt đầu miễn phí</a></li>
+      </ul>
+    </div>
   </header>
 
   <main id="main">
@@ -199,5 +221,10 @@
     </div>
   </footer>
 
+
+  <button type="button" id="to-top" class="fixed bottom-6 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg" aria-label="Lên đầu trang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+  </button>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
