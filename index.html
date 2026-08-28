@@ -6,31 +6,53 @@
   <title>StudyFlow — Học 25 phút, nghỉ đúng lúc</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="dist/output.css" />
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const dark = saved ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    })();
+  </script>
 </head>
 <body class="font-body text-ink">
 
   <a href="#main" class="sr-only focus:not-sr-only">Bỏ qua đến nội dung chính</a>
 
+  <div id="nav-sentinel" aria-hidden="true"></div>
+
   <!-- NAVBAR (dùng chung cho cả 3 trang) -->
-  <header class="border-b border-line">
+  <header id="site-header" class="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur-md transition-shadow dark:bg-surface-dark/90">
     <nav aria-label="Điều hướng chính" class="section flex items-center justify-between !py-4">
       <a href="#main" class="font-display text-lg font-bold">StudyFlow</a>
       <ul class="hidden items-center gap-8 text-sm font-medium lg:flex">
-        <li><a href="index.html#tinh-nang-title" class="btn-ghost">Tính năng</a></li>
-        <li><a href="index.html#so-lieu-title" class="btn-ghost">Số liệu</a></li>
+        <li><a href="index.html#tinh-nang-title" class="btn-ghost text-brand-600" aria-current="page">Tính năng</a></li>
+        <li><a href="index.html#so-lieu-title" class="btn-ghost text-brand-600" aria-current="page">Số liệu</a></li>
         <li><a href="pricing.html" class="btn-ghost">Bảng giá</a></li>
-        <li><a href="index.html#faq-title" class="btn-ghost">Câu hỏi thường gặp</a></li>
+        <li><a href="index.html#faq-title" class="btn-ghost text-brand-600" aria-current="page">Câu hỏi thường gặp</a></li>
         <li><a href="contact.html" class="btn-ghost">Liên hệ</a></li>
       </ul>
-      <div class="flex items-center gap-4">
-        <a href="#" class="btn-ghost hidden text-sm font-semibold lg:inline">Đăng nhập</a>
-        <a href="contact.html" class="btn btn-primary">Bắt đầu miễn phí</a>
-        <!-- Hamburger: chừa chỗ cho mobile, gắn JS ở buổi 4 -->
-        <button type="button" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line lg:hidden" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mobile-menu">
+      <div class="flex items-center gap-3">
+        <button type="button" id="theme-toggle" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line" aria-label="Chuyển chế độ tối">
+          <svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary hidden sm:inline-flex">Bắt đầu miễn phí</a>
+        <button type="button" id="nav-toggle" class="btn-ghost grid h-10 w-10 place-items-center rounded-lg border border-line lg:hidden" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </nav>
+    <div id="mobile-menu" class="hidden border-t border-line bg-white dark:bg-surface-dark lg:hidden" role="dialog" aria-label="Menu điều hướng">
+      <ul class="section !py-6 flex flex-col gap-4 text-base font-medium">
+        <li><a href="index.html#tinh-nang-title" class="block py-2">Tính năng</a></li>
+        <li><a href="index.html#so-lieu-title" class="block py-2">Số liệu</a></li>
+        <li><a href="pricing.html" class="block py-2">Bảng giá</a></li>
+        <li><a href="index.html#faq-title" class="block py-2">Câu hỏi thường gặp</a></li>
+        <li><a href="contact.html" class="block py-2">Liên hệ</a></li>
+        <li class="pt-2"><a href="contact.html" class="btn btn-primary w-full justify-center">Bắt đầu miễn phí</a></li>
+      </ul>
+    </div>
   </header>
 
   <main id="main">
@@ -69,7 +91,7 @@
     </section>
 
     <!-- TÍNH NĂNG -->
-    <section aria-labelledby="tinh-nang-title" class="section flex flex-col gap-20">
+    <section aria-labelledby="tinh-nang-title" class="section flex flex-col gap-20 reveal">
       <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div class="flex flex-col gap-4">
           <h2 id="tinh-nang-title" class="font-display text-3xl font-bold">Biến buổi ôn rời rạc thành lịch trình rõ ràng</h2>
@@ -149,7 +171,7 @@
     </section>
 
     <!-- SỐ LIỆU -->
-    <section aria-labelledby="so-lieu-title" class="section grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+    <section aria-labelledby="so-lieu-title" class="section reveal grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
       <div class="flex flex-col gap-4">
         <p class="eyebrow font-display text-xs uppercase tracking-[0.2em] text-accent-600">Được tin dùng</p>
         <h2 id="so-lieu-title" class="font-display text-3xl font-bold">Hơn 40 trường đại học đang dùng StudyFlow</h2>
@@ -208,19 +230,34 @@
       </ul>
     </section>
 
-    <!-- CẢM NHẬN-->
-    <section aria-labelledby="cam-nhan-title" class="section flex flex-col items-center gap-6 text-center">
-      <h2 id="cam-nhan-title" class="sr-only">Sinh viên nói gì</h2>
-      <svg width="32" height="24" viewBox="0 0 32 24" fill="none" class="text-line" aria-hidden="true"><path d="M0 24V14.4C0 6.4 5.2 0.8 12.8 0L14 4C9.6 5.2 7.2 8 7.2 12H12.8V24H0ZM17.2 24V14.4C17.2 6.4 22.4 0.8 30 0L31.2 4C26.8 5.2 24.4 8 24.4 12H30V24H17.2Z" fill="currentColor"/></svg>
-      <figure class="flex flex-col items-center gap-6">
-        <blockquote class="max-w-xl text-xl text-ink">
-          Hết 25 phút chuông kêu, mình mới nhận ra mình vừa học liền một mạch — trước đây mở sách rồi lướt điện thoại lúc nào không hay.
-        </blockquote>
-        <figcaption class="flex flex-col gap-0.5 text-sm">
-          <span class="font-semibold">Vy</span>
-          <cite class="font-normal not-italic text-muted">Sinh viên năm 3, ngành Kế toán</cite>
-        </figcaption>
-      </figure>
+    <!-- CẢM NHẬN / SLIDER -->
+    <section id="slider" aria-labelledby="cam-nhan-title" class="section flex flex-col items-center gap-8 text-center reveal">
+      <h2 id="cam-nhan-title" class="font-display text-3xl font-bold">Sinh viên nói gì</h2>
+      <div class="relative w-full max-w-2xl overflow-hidden">
+        <div id="slider-track" class="flex transition-transform duration-500 ease-out" style="transform: translateX(0%)">
+          <blockquote class="w-full shrink-0 px-4" data-slide>
+            <p class="text-xl text-ink">"Hết 25 phút chuông kêu, mình mới nhận ra mình vừa học liền một mạch — trước đây mở sách rồi lướt điện thoại lúc nào không hay."</p>
+            <footer class="mt-4 text-sm font-semibold">Vy <span class="font-normal text-muted">— sinh viên năm 3, ngành Kế toán</span></footer>
+          </blockquote>
+          <blockquote class="w-full shrink-0 px-4" data-slide inert>
+            <p class="text-xl text-ink">"Nhật ký theo môn giúp mình thấy rõ đang bỏ bê Giải tích. Từ đó xếp lại lịch và điểm giữa kỳ tăng hẳn."</p>
+            <footer class="mt-4 text-sm font-semibold">Minh <span class="font-normal text-muted">— sinh viên năm 2, ngành CNTT</span></footer>
+          </blockquote>
+          <blockquote class="w-full shrink-0 px-4" data-slide inert>
+            <p class="text-xl text-ink">"Nhóm học dùng chung lịch phiên, mọi người cùng bắt đầu và cùng nghỉ. Học nhóm hiệu quả hơn nhiều."</p>
+            <footer class="mt-4 text-sm font-semibold">Lan <span class="font-normal text-muted">— sinh viên năm 4, ngành Kinh tế</span></footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button type="button" id="slider-prev" class="grid h-10 w-10 place-items-center rounded-full border border-line" aria-label="Slide trước">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div id="slider-dots" class="flex gap-2" role="tablist" aria-label="Chọn slide"></div>
+        <button type="button" id="slider-next" class="grid h-10 w-10 place-items-center rounded-full border border-line" aria-label="Slide tiếp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
     </section>
 
     <!-- CÁCH HOẠT ĐỘNG (bài tập về nhà: section tự thêm, đúng chuỗi 3 bước có thứ tự) -->
@@ -250,10 +287,17 @@
     </section>
 
     <!-- BẢNG GIÁ-->
-    <section aria-labelledby="gia-title" class="section flex flex-col gap-10">
-      <div class="flex flex-col items-center gap-2 text-center">
+    <section id="pricing" aria-labelledby="gia-title" class="section flex flex-col gap-10 reveal">
+      <div class="flex flex-col items-center gap-4 text-center">
         <h2 id="gia-title" class="font-display text-3xl font-bold">Học thử miễn phí, nâng cấp khi thấy mình cần</h2>
         <p class="max-w-md text-muted">Không cần thẻ ngân hàng để bắt đầu.</p>
+        <div class="flex items-center gap-3 text-sm font-medium">
+          <span id="label-monthly" class="text-ink">Tháng</span>
+          <button type="button" id="pricing-toggle" role="switch" aria-checked="false" aria-labelledby="label-monthly label-yearly" class="relative h-7 w-12 rounded-full bg-line transition-colors">
+            <span class="absolute left-0.5 top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform" aria-hidden="true"></span>
+          </button>
+          <span id="label-yearly" class="text-muted">Năm <span class="ml-1 rounded-full bg-success-500/15 px-2 py-0.5 text-xs text-success-500">−20%</span></span>
+        </div>
       </div>
       <ul class="grid items-stretch gap-6 lg:grid-cols-3">
         <li class="flex h-full flex-col gap-4 rounded-card border border-line p-6">
@@ -261,7 +305,7 @@
             <h3 class="font-semibold">Miễn phí</h3>
             <p class="text-sm text-muted">Dành cho ai mới thử.</p>
           </div>
-          <p class="font-display text-2xl font-bold">0đ</p>
+          <p class="font-display text-2xl font-bold"><span data-price data-monthly="0" data-yearly="0">0 ₫</span></p>
           <ul class="flex flex-col gap-2 text-sm text-muted">
             <li>3 phiên/ngày</li>
             <li>1 môn học</li>
@@ -275,7 +319,7 @@
             <h3 class="font-semibold">Sinh viên</h3>
             <p class="text-sm text-muted">Ôn thi nghiêm túc cả kỳ.</p>
           </div>
-          <p class="font-display text-2xl font-bold">29.000đ<span class="text-sm font-normal">/tháng</span></p>
+          <p class="font-display text-2xl font-bold"><span data-price data-monthly="29000" data-yearly="278400">29.000 ₫</span><span class="text-sm font-normal text-muted" data-period>/tháng</span></p>
           <ul class="flex flex-col gap-2 text-sm text-muted">
             <li>Phiên không giới hạn</li>
             <li>Mọi môn học</li>
@@ -288,7 +332,7 @@
             <h3 class="font-semibold">Nhóm học</h3>
             <p class="text-sm text-muted">Ôn cùng bạn bè.</p>
           </div>
-          <p class="font-display text-2xl font-bold">79.000đ<span class="text-sm font-normal">/tháng</span></p>
+          <p class="font-display text-2xl font-bold"><span data-price data-monthly="79000" data-yearly="758400">79.000 ₫</span><span class="text-sm font-normal text-muted" data-period>/tháng</span></p>
           <ul class="flex flex-col gap-2 text-sm text-muted">
             <li>Phiên nhóm đồng bộ</li>
             <li>Xếp hạng chuỗi ngày</li>
@@ -300,41 +344,56 @@
     </section>
 
     <!-- FAQ -->
-    <section aria-labelledby="faq-title" class="section grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+        <section id="faq" aria-labelledby="faq-title" class="section grid gap-12 lg:grid-cols-[1fr_1.4fr] reveal">
       <div class="flex flex-col gap-3">
         <h2 id="faq-title" class="font-display text-3xl font-bold">Câu hỏi thường gặp</h2>
-        <p class="text-muted">Chưa thấy câu trả lời mình cần? Nhắn cho đội StudyFlow, phản hồi trong vòng một ngày làm việc.</p>
-        <a href="contact.html" class="text-sm font-semibold text-brand-600 hover:underline">Liên hệ hỗ trợ →</a>
+        <p class="text-muted">Những thắc mắc phổ biến khi bắt đầu dùng StudyFlow.</p>
       </div>
       <div class="flex flex-col divide-y divide-line border-y border-line">
-        <details class="group flex flex-col gap-3 py-4" open>
-          <summary class="flex cursor-pointer items-center justify-between font-semibold marker:content-none">
-            Có tính giờ khi tắt màn hình không?
-            <span class="text-muted transition-transform group-open:rotate-180" aria-hidden="true">⌄</span>
-          </summary>
-          <p class="text-sm text-muted">Có, phiên vẫn chạy nền và rung nhắc khi hết giờ.</p>
-        </details>
-        <details class="group flex flex-col gap-3 py-4">
-          <summary class="flex cursor-pointer items-center justify-between font-semibold marker:content-none">
-            Đăng ký có cần thẻ ngân hàng không?
-            <span class="text-muted transition-transform group-open:rotate-180" aria-hidden="true">⌄</span>
-          </summary>
-          <p class="text-sm text-muted">Không, gói Miễn phí dùng ngay bằng email.</p>
-        </details>
-        <details class="group flex flex-col gap-3 py-4">
-          <summary class="flex cursor-pointer items-center justify-between font-semibold marker:content-none">
-            Có dùng được trên máy tính không?
-            <span class="text-muted transition-transform group-open:rotate-180" aria-hidden="true">⌄</span>
-          </summary>
-          <p class="text-sm text-muted">Có, tài khoản đồng bộ nên dữ liệu khớp trên mọi thiết bị.</p>
-        </details>
-        <details class="group flex flex-col gap-3 py-4">
-          <summary class="flex cursor-pointer items-center justify-between font-semibold marker:content-none">
-            Hủy gói Sinh viên có mất dữ liệu không?
-            <span class="text-muted transition-transform group-open:rotate-180" aria-hidden="true">⌄</span>
-          </summary>
-          <p class="text-sm text-muted">Không, nhật ký vẫn được giữ, chỉ giới hạn lại theo gói Miễn phí.</p>
-        </details>
+        <div class="py-4">
+          <h3>
+            <button type="button" data-faq-trigger aria-expanded="true" aria-controls="faq-panel-1" id="faq-trigger-1" class="flex w-full cursor-pointer items-center justify-between text-left font-semibold">
+              Có tính giờ khi tắt màn hình không?
+              <span class="faq-icon text-muted transition-transform" aria-hidden="true">⌄</span>
+            </button>
+          </h3>
+          <div id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1" class="mt-3">
+            <p class="text-sm text-muted">Có, phiên vẫn chạy nền và rung nhắc khi hết giờ.</p>
+          </div>
+        </div>
+        <div class="py-4">
+          <h3>
+            <button type="button" data-faq-trigger aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2" class="flex w-full cursor-pointer items-center justify-between text-left font-semibold">
+              Đăng ký có cần thẻ ngân hàng không?
+              <span class="faq-icon text-muted transition-transform" aria-hidden="true">⌄</span>
+            </button>
+          </h3>
+          <div id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2" class="mt-3 hidden">
+            <p class="text-sm text-muted">Không, gói Miễn phí dùng ngay bằng email.</p>
+          </div>
+        </div>
+        <div class="py-4">
+          <h3>
+            <button type="button" data-faq-trigger aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3" class="flex w-full cursor-pointer items-center justify-between text-left font-semibold">
+              Có dùng được trên máy tính không?
+              <span class="faq-icon text-muted transition-transform" aria-hidden="true">⌄</span>
+            </button>
+          </h3>
+          <div id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" class="mt-3 hidden">
+            <p class="text-sm text-muted">Có, tài khoản đồng bộ nên dữ liệu khớp trên mọi thiết bị.</p>
+          </div>
+        </div>
+        <div class="py-4">
+          <h3>
+            <button type="button" data-faq-trigger aria-expanded="false" aria-controls="faq-panel-4" id="faq-trigger-4" class="flex w-full cursor-pointer items-center justify-between text-left font-semibold">
+              Hủy gói Sinh viên có mất dữ liệu không?
+              <span class="faq-icon text-muted transition-transform" aria-hidden="true">⌄</span>
+            </button>
+          </h3>
+          <div id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4" class="mt-3 hidden">
+            <p class="text-sm text-muted">Không, nhật ký vẫn được giữ, chỉ giới hạn lại theo gói Miễn phí.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -342,7 +401,10 @@
     <section aria-labelledby="cta-title" class="section flex flex-col items-center gap-6 rounded-card bg-brand-600 text-center text-white">
       <h2 id="cta-title" class="font-display text-3xl font-bold">Bắt đầu học thử ngay hôm nay</h2>
       <p class="max-w-md text-white/80">Cài đặt mất chưa tới 2 phút, không cần thẻ ngân hàng.</p>
-      <a href="contact.html" class="btn bg-white text-brand-600 hover:bg-white/90">Bắt đầu phiên đầu tiên</a>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="contact.html" class="btn bg-white text-brand-600 hover:bg-white/90">Bắt đầu phiên đầu tiên</a>
+        <button type="button" id="promo-copy" data-code="STUDYFLOW25" class="btn border border-white/40 bg-transparent text-white hover:bg-white/10">Copy mã STUDYFLOW25</button>
+      </div>
     </section>
 
   </main>
@@ -389,6 +451,10 @@
       </div>
     </div>
   </footer>
-
+  
+<button type="button" id="to-top" class="fixed bottom-6 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2" aria-label="Lên đầu trang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+  </button>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
