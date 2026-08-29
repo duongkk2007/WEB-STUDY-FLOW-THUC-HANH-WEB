@@ -16,7 +16,6 @@ export function initNav() {
     setOpen(!isOpen);
   });
 
-  // ESC đóng menu + trả focus
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
       setOpen(false);
@@ -24,7 +23,6 @@ export function initNav() {
     }
   });
 
-  // Bấm ra ngoài header
   document.addEventListener("click", (e) => {
     if (toggle.getAttribute("aria-expanded") !== "true") return;
     if (!header.contains(e.target)) {
@@ -32,14 +30,12 @@ export function initNav() {
     }
   });
 
-  // Đóng khi phóng lên desktop
   const mq = window.matchMedia("(min-width: 1024px)");
   function onResize(e) {
     if (e.matches) setOpen(false);
   }
   mq.addEventListener("change", onResize);
 
-  // Đóng khi bấm link trong menu
   menu.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => setOpen(false));
   });
@@ -62,10 +58,30 @@ export function initToTop() {
   const btn = document.getElementById("to-top");
   if (!btn) return;
 
+  // Bảo đảm style cố định kể cả khi thiếu utility Tailwind
+  btn.style.position = "fixed";
+  btn.style.bottom = "1.5rem";
+  btn.style.right = "1.5rem";
+  btn.style.zIndex = "50";
+  btn.style.width = "3rem";
+  btn.style.height = "3rem";
+  btn.style.borderRadius = "9999px";
+  btn.style.alignItems = "center";
+  btn.style.justifyContent = "center";
+  btn.style.cursor = "pointer";
+  btn.style.border = "none";
+
   function update() {
-    const show = window.scrollY > 400;
-    btn.classList.toggle("hidden", !show);
-    btn.classList.toggle("flex", show);
+    const show = window.scrollY > 300;
+    if (show) {
+      btn.classList.remove("hidden");
+      btn.style.display = "flex";
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    } else {
+      btn.style.display = "none";
+      btn.style.pointerEvents = "none";
+    }
   }
 
   window.addEventListener("scroll", update, { passive: true });
