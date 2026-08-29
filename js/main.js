@@ -5,6 +5,8 @@ import { initPricing } from "./pricing.js";
 import { initSlider } from "./slider.js";
 import { initReveal } from "./reveal.js";
 import { initPromo } from "./promo.js";
+import { initRecords } from "./records.js";
+import { initForm } from "./form.js";
 
 initNav();
 initHeaderOnScroll();
@@ -15,3 +17,5 @@ initPricing();
 initSlider();
 initReveal();
 initPromo();
+initRecords();
+initForm();
